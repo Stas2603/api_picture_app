@@ -6,7 +6,7 @@ part 'user_info.g.dart';
 class UserInfo {
   UserInfo({
     required this.autor,
-});
+  });
 
   @JsonKey(name: 'name')
   final String autor;

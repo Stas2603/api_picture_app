@@ -1,5 +1,5 @@
-import 'package:api_picture_app/domain/usecases/take_pictures_usecase.dart';
 import 'package:bloc/bloc.dart';
+import '../../../domain/usecases/take_pictures_usecase.dart';
 import 'main_screen_state.dart';
 
 class MainScreenCubit extends Cubit<MainScreenState> {
@@ -19,5 +19,5 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     emit(
       state.copyWith(pictures: pictures, isLoading: false),
     );
-}
+  }
 }

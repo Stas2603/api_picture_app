@@ -1,7 +1,7 @@
-import 'package:api_picture_app/presentation/screens/main_screen/main_screen_cubit.dart';
-import 'package:api_picture_app/presentation/screens/main_screen/main_screen_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'main_screen_cubit.dart';
+import 'main_screen_state.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -18,27 +18,35 @@ class _MainScreenViewState extends State<MainScreenView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: BlocBuilder<MainScreenCubit, MainScreenState>(
-          builder: (context, state) {
-        if (state.pictures.isEmpty || state.isLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else {
-          return ListView.builder(
-            itemCount: state.pictures.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                trailing: Image.network(state.pictures[index].photo),
-                title: Text(state.pictures[index].autor),
-                subtitle: Text(state.pictures[index].title ?? ''),
-              );
+  Widget build(BuildContext context) => Scaffold(
+        body: SafeArea(
+          child: BlocBuilder<MainScreenCubit, MainScreenState>(
+            builder: (context, state) {
+              if (state.pictures.isEmpty || state.isLoading) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: state.pictures.length,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/picture',
+                        arguments: state.pictures[index].id,
+                      );
+                    },
+                    child: ListTile(
+                      trailing: Image.network(state.pictures[index].photo),
+                      title: Text(state.pictures[index].autor),
+                      subtitle: Text(state.pictures[index].title ?? ''),
+                    ),
+                  ),
+                );
+              }
             },
-          );
-        }
-      })),
-    );
-  }
+          ),
+        ),
+      );
 }

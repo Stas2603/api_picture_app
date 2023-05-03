@@ -1,6 +1,6 @@
-import 'package:api_picture_app/data/entity/image_url.dart';
-import 'package:api_picture_app/data/entity/user_info.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'image_url.dart';
+import 'user_info.dart';
 
 part 'network_picture.g.dart';
 
@@ -11,7 +11,7 @@ class NetworkPicture {
     required this.autor,
     required this.title,
     required this.picture,
-});
+  });
 
   @JsonKey(name: 'id')
   final String id;
