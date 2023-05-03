@@ -1,29 +1,147 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
+include: package:very_good_analysis/analysis_options.3.1.0.yaml
 
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+analyzer:
+  plugins:
+    - dart_code_metrics
+  language:
+    strict-inference: false
+    strict-raw-types: false
+  errors:
+    always_use_package_imports: ignore
+    public_member_api_docs: ignore
+    lines_longer_than_80_chars: ignore
+    avoid_function_literals_in_foreach_calls: ignore
+    implicit_dynamic_parameter: ignore
+    implicit_dynamic_type: ignore
+    implicit_dynamic_map_literal: ignore
+    implicit_dynamic_method: ignore
+    implicit_dynamic_list_literal: ignore
+    implicit_dynamic_variable: ignore
+    implicit_dynamic_function: ignore
+    avoid_setters_without_getters: ignore
+    #    experimental lint
+    use_build_context_synchronously: ignore
+    body_might_complete_normally_nullable: ignore
+  exclude:
+    - 'bin/cache/**'
+    # the following two are relative to the stocks example and the flutter package respectively
+    # see https://github.com/dart-lang/sdk/issues/28463
+    - 'lib/i18n/messages_*.dart'
+    - 'lib/src/http/**'
+    # custom
+    - 'lib/generated/**'
+    - '**.g.dart'
+    #    - 'editable/**'
+    - 'third_party/**'
 
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at
-  # https://dart-lang.github.io/linter/lints/index.html.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    sort_pub_dependencies: false
+    one_member_abstracts: false
+    prefer_const_constructors_in_immutables: true
+    prefer_relative_imports: true
+    prefer_final_locals: true
+    avoid_void_async: true
+    unnecessary_await_in_return: true
+    prefer_expression_function_bodies: true
+    avoid_field_initializers_in_const_classes: true
+    file_names: true
+    unnecessary_parenthesis: true
+    prefer_void_to_null: true
+    avoid_bool_literals_in_conditional_expressions: true
+    avoid_returning_null_for_void: true
+    prefer_function_declarations_over_variables: true
+    empty_statements: true
+    prefer_is_not_operator: true
+    cast_nullable_to_non_nullable: true
+    avoid_classes_with_only_static_members: true
+    type_annotate_public_apis: true
+    prefer_const_literals_to_create_immutables: true
+    use_named_constants: true
+    use_string_buffers: true
+    unnecessary_raw_strings: true
+    unnecessary_null_checks: true
+    parameter_assignments: true
+    prefer_const_declarations: true
+    sort_unnamed_constructors_first: true
+    use_setters_to_change_properties: true
+    curly_braces_in_flow_control_structures: true
+    require_trailing_commas: true
+    
+    prefer_constructors_over_static_methods: false
+    flutter_style_todos: false
+    prefer_asserts_with_message: false
+    avoid_positional_boolean_parameters: false
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+    depend_on_referenced_packages: false
+    no_leading_underscores_for_local_identifiers: false
+    use_if_null_to_convert_nulls_to_bools: false
+
+dart_code_metrics:
+  rules:
+    - avoid-collection-methods-with-unrelated-types
+    - avoid-duplicate-exports
+    #    - avoid-dynamic
+    #    - avoid-global-state
+    #    - avoid-ignoring-return-values
+    #    - avoid-late-keyword
+    - avoid-missing-enum-constant-in-map
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+    - avoid-non-ascii-symbols:
+        exclude:
+          - test/**
+          - lib/src/presentation/common/**
+    #    - avoid-non-null-assertion
+    - avoid-throw-in-catch-block
+    - avoid-unnecessary-type-assertions
+    - avoid-unrelated-type-assertions
+    - avoid-unnecessary-type-casts
+    - avoid-unrelated-type-assertions
+    - avoid-unused-parameters:
+        exclude:
+         - lib/src/data/db/db_provider.dart
+    - binary-expression-operand-order
+    - double-literal-format
+    #    - format-comment
+    #    - member-ordering:
+    #        alphabetize: true
+    - member-ordering-extended: false
+    # do not use this
+    - newline-before-return: true
+    - no-boolean-literal-compare
+    #    - no-empty-block
+    # todo use
+    #    - no-equal-arguments
+    - no-equal-then-else
+    # todo use
+    - no-magic-number
+    #    - no-object-declaration
+    #    - prefer-async-await
+    # todo use
+    #    - prefer-correct-identifier-length
+    - prefer-correct-type-name
+    - prefer-enums-by-name
+    - prefer-first
+    - prefer-immediate-return
+    - prefer-last
+    # todo maybe use
+    - prefer-match-file-name
+    # todo maybe use
+    - prefer-trailing-comma
+    #        break-on: 3
+    - tag-name
+    # Flutter specific
+    - always-remove-listener
+    #    - avoid-border-all
+    #    - avoid-returning-widgets
+    - avoid-unnecessary-setstate
+    #    - avoid-wrapping-in-padding
+    - prefer-const-border-radius
+    #    - prefer-extracting-callbacks
+    #    - prefer-single-widget-per-file
+    # Intl specific
+    - prefer-intl-name
+    - provide-correct-intl-args
+
+  anti-patterns:

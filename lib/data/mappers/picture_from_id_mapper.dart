@@ -1,8 +1,8 @@
 import '../../domain/entity/picture.dart';
 import '../entity/network_picture.dart';
 
-class PictureMapper {
-  PictureMapper();
+class PictureFromIdMapper {
+  PictureFromIdMapper();
 
   Picture mapFromNetwork(
     NetworkPicture networkPicture,

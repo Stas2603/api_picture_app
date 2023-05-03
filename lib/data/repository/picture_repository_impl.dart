@@ -1,11 +1,14 @@
-import 'package:api_picture_app/data/api/picture_api.dart';
-import 'package:api_picture_app/data/entity/network_picture.dart';
-import 'package:api_picture_app/data/mappers/picture_mapper.dart';
-import 'package:api_picture_app/domain/entity/picture.dart';
-import 'package:api_picture_app/domain/repository/picture_repository.dart';
+import '../../domain/entity/picture.dart';
+import '../../domain/repository/picture_repository.dart';
+import '../api/picture_api.dart';
+import '../entity/network_picture.dart';
+import '../mappers/picture_mapper.dart';
 
 class PictureRepositoryImpl extends PictureRepository {
-  PictureRepositoryImpl({required this.pictureApi, required this.pictureMapper});
+  PictureRepositoryImpl({
+    required this.pictureApi,
+    required this.pictureMapper,
+  });
   final PictureApi pictureApi;
   final PictureMapper pictureMapper;
 
@@ -16,10 +19,18 @@ class PictureRepositoryImpl extends PictureRepository {
 
     await Future.forEach<NetworkPicture>(networkPictures,
         (networkPicture) async {
-      pictures.add(pictureMapper.mapFromNetwork(
-        networkPicture,
-      ));
+      pictures.add(
+        pictureMapper.mapFromNetwork(
+          networkPicture,
+        ),
+      );
     });
     return pictures;
+  }
+
+  @override
+  Future<String> takePictureFromId(String id) async {
+    final networkPicture = await pictureApi.takePictureFromId(id);
+    return networkPicture.image.link;
   }
 }
